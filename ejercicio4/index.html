@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Ejercicio 4 - Mapa de comunidades din&aacute;mico</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="description" content="Mapa de comunidades responsive y din&aacute;mico">
+		<link rel="stylesheet" href="css/estilos.css">
+	</head>
+	<body>
+		<div class="contenedor">
+			<div id="mapa"></div>
+			<div id="capa-boton"></div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/raphael-min.js"></script>
+		<script type="text/javascript" src="js/pathsSVG.js"></script>
+		<script type="text/javascript" src="js/initMap.js"></script>
+		<script>
+			$(document).ready(function() {
+				$.initMap(); // Cargamos el mapa
+
+				$("#capa-boton").click(function() {
+					$("#capa-boton").css("display", "none");
+					//r.canvas.setAttribute('viewBox', "150.522 11.305 416.74600000000004 348.17");
+					$("#mapa").css("overflow", "visible").empty();
+					$.initMap();
+				});
+			});
+		</script>
+	</body>
+</html>

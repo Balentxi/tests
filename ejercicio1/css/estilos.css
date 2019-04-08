@@ -1,0 +1,63 @@
+body {
+      background-color: #f2f2f2;
+      padding: 15px;
+  }
+/*** Definimos las propiedades flexbox para los navegadores que no soporten CSS Grid ***/
+.grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: calc(100vh - 15px);
+    margin-top: -15px;
+    margin-left: -15px;
+}
+.grid .card {
+    flex-basis: calc(100% - 15px);
+    background-color: white;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
+    margin-top: 15px;
+    margin-left: 15px;
+    box-sizing: border-box;
+}
+@supports (display: grid) {
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 15px;
+        margin: 0;
+    }
+    .grid .card {
+        margin: 0;
+    }
+}
+/*** Tablet ***/
+@media all and (min-width: 768px) {
+    .grid .card {
+        flex-basis: calc(50% - 15px);
+    }
+    .grid .card:first-child {
+        flex-basis: calc(100% - 15px);
+    }
+    @supports (display: grid) {
+        .grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        .grid .card:first-child {
+            grid-column: span 2;
+        }
+    }
+}
+/*** Desktop ***/
+@media all and (min-width: 992px) {
+    .grid .card {
+        flex-basis: calc(25% - 15px);
+    }
+    .grid .card:first-child {
+        flex-basis: calc(50% - 15px);
+    }
+    @supports (display: grid) {
+        .grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}
