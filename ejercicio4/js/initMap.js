@@ -1,6 +1,6 @@
 $.initMap = function() {
-
-    let r = Raphael('mapa', 777, 413);
+    //Parametros del mapa
+    const r = Raphael('mapa', 777, 413);
     r.setSize('100%', '100%');
     r.safari();
     let _label = r.popup(10, 10, "").hide();
@@ -14,26 +14,26 @@ $.initMap = function() {
     for (let currentPath in paths) {
         let obj = r.path(paths[currentPath].path);
         arr[obj.id] = currentPath;
-	obj.attr(attributes);
-	// Al pasar el ratón por encima del path le cambiamos el color
+        obj.attr(attributes);
+        // Al pasar el ratón por encima de un path le cambiamos el color
         obj.hover(function(){
             this.animate({
                 fill: '#aaaaaa'
             }, 200);
-	    bbox = this.getBBox();
+	    let bbox = this.getBBox();
 	    // Mostramos el tooltip
 	    _label.attr({text: paths[arr[this.id]].name}).update(bbox.x, bbox.y + bbox.height/2, bbox.width).toFront().show();
         },
-        // Restablecemos su color
+        // Al abandonar el path, restablecemos su color
         function(){
             this.animate({
                 fill: attributes.fill,
                 stroke: attributes.stroke
             }, 200);
             // Ocultamos el tooltip
-	    _label.hide();
+            _label.hide();
         });
-        // Al hacer click en alguna comunidad, hacemos zoom sobre la comunidad seleccionada
+        // Al hacer click sobre alguna comunidad, hacemos zoom sobre la comunidad seleccionada
         obj.click(function(){
             obj.hover(function(){
                 this.animate({
@@ -42,14 +42,16 @@ $.initMap = function() {
                 // Ocultamos el tooltip
                 _label.hide();
             },
-            // Restablecemos su color
             function(){
                 this.animate({
                     fill: '#aaaaaa'
                 }, 200);
+                _label.hide();
             });
-            bbox = this.getBBox();
+            //Definimos los parametros para la ampliación
+            let bbox = this.getBBox();
             let margin = Math.max(bbox.width, bbox.height) * 0.025;
+            //Ampliamos el mapa sobre la comunidad seleccionada
             r.canvas.setAttribute('viewBox', (bbox.x - margin) + " " + (bbox.y - margin) + " " + (bbox.width + (margin * 2)) + " " + (bbox.height + (margin *2)));
             $("#capa-boton").css("display", "block");
             $("svg").css("overflow", "hidden");
